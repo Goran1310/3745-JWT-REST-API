@@ -1,5 +1,15 @@
 var createError = require('http-errors');
 var express = require('express');
+var app = express();
+var db = require('./models');
+
+// Sync the Sequelize models with the database
+db.sequelize.sync({ force: false }).then(() => {
+  console.log('Database synced successfully.');
+}).catch((err) => {
+  console.error('Error syncing database:', err);
+});
+
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
